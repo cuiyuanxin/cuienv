@@ -2,7 +2,7 @@ ARG PHP_VERSION
 FROM php:${PHP_VERSION}-fpm
 ADD sources.list /etc/apt/
 RUN apt-get update
-RUN apt-get install zlib1g=1:1.2.8.dfsg-5 -y --allow-downgrades
+#RUN apt-get install zlib1g=1:1.2.8.dfsg-5 -y --allow-downgrades
 #RUN apt-get install libssl1.1=1.1.0l-1~deb9u1 -y --allow-downgrades
 #openssl libssl-dev libcurl4-openssl-dev
 RUN apt-get install -y gcc g++ make autoconf zlib1g-dev libwebp-dev libjpeg-dev libc6-dev libc-dev libpng-dev zip libzip-dev libfreetype6-dev libpng-dev libjpeg62-turbo-dev git
