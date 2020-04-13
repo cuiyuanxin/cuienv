@@ -1,9 +1,8 @@
 FROM node:latest
 ADD sources.list /etc/apt/
-RUN apt-get update
-RUN apt-get install -y git
-
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
-RUN npm install -g express
-RUN npm install -g webpack
-RUN npm install --global vue-cli
+RUN apt-get update \ 
+&& apt-get install -y git \ 
+&& npm install -g cnpm --registry=https://registry.npm.taobao.org \ 
+&& npm install -g express \ 
+&& npm install -g webpack \ 
+&& npm install --global vue-cli

@@ -11,6 +11,7 @@ services:
       - ${MYSQL_LOG_DIR}:/var/log/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
+    container_name: "${MYSQL_CONTAINER_NAME}"
   php73:
     build:
       context: ./dockerfile/php/php73
@@ -33,6 +34,7 @@ services:
     restart: always
     networks:
       - default
+    container_name: "${PHP73_CONTAINER_NAME}"
   php56:
     build:
       context: ./dockerfile/php/php56
@@ -47,12 +49,13 @@ services:
       - ${PHP56_CONFIG_FILE}:/usr/local/etc/php/php.ini:ro
       - ${PHP56_FRM_CONFIG_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
     links:
-      - mysql:mysql
+      - mysql:${MYSQL_CONTAINER_NAME}
     cap_add:
       - SYS_PTRACE
     restart: always
     networks:
       - default
+    container_name: "${PHP56_CONTAINER_NAME}"
   nginx:
     image: nginx:${NGINX_VERSION}
     ports:
@@ -67,6 +70,7 @@ services:
       - php73:php73
       - php56:php56
     restart: always
+    container_name: "${NGINX_CONTAINER_NAME}"
   redis:
     ports:
       - 6379:6379
@@ -74,6 +78,7 @@ services:
     volumes:
       - ${REDIS_DATA_DIR}:/data:rw
     restart: always
+    container_name: "${REDIS_CONTAINER_NAME}"
   node:
     build:
       context: ./dockerfile/node
@@ -82,4 +87,4 @@ services:
     privileged: true
     volumes:
       - ${NODE_WWW_DIR}:/var/www/html
-  
+    container_name: "${NODE_CONTAINER_NAME}"
